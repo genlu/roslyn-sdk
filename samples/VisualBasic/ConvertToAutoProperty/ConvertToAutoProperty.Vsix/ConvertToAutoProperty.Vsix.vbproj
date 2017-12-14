@@ -87,12 +87,6 @@
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConvertToAutoProperty\ConvertToAutoProperty.vbproj">
-      <Project>{C7811972-6954-4E90-83AC-6365DDA519B4}</Project>
-      <Name>ConvertToAutoProperty</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
@@ -103,6 +97,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConvertToAutoProperty\ConvertToAutoProperty.vbproj">
+      <Project>{c7811972-6954-4e90-83ac-6365dda519b4}</Project>
+      <Name>ConvertToAutoProperty</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

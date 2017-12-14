@@ -3,7 +3,7 @@
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Semantics;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace Sample.Analyzers.StatelessAnalyzers
 {
@@ -30,16 +30,16 @@ namespace Sample.Analyzers.StatelessAnalyzers
         {
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.EnableConcurrentExecution();
-            context.RegisterOperationAction(AnalyzeOperation, OperationKind.ArrayCreationExpression);
+            context.RegisterOperationAction(AnalyzeOperation, OperationKind.ArrayCreation);
         }
 
         private void AnalyzeOperation(OperationAnalysisContext context)
         {
-            IArrayCreationExpression creationExpression = (IArrayCreationExpression)context.Operation;
+            IArrayCreationOperation creationOperation = (IArrayCreationOperation)context.Operation;
 
-            if (creationExpression.DimensionSizes.Length == 1 && creationExpression.DimensionSizes[0].ConstantValue.HasValue)
+            if (creationOperation.DimensionSizes.Length == 1 && creationOperation.DimensionSizes[0].ConstantValue.HasValue)
             {
-                object arrayDimension = creationExpression.DimensionSizes[0].ConstantValue.Value;
+                object arrayDimension = creationOperation.DimensionSizes[0].ConstantValue.Value;
                 if (arrayDimension is int && (int)arrayDimension == 0)
                 {
                     context.ReportDiagnostic(Diagnostic.Create(Rule, context.Operation.Syntax.GetLocation()));
