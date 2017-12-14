@@ -35,11 +35,11 @@ namespace Sample.Analyzers.StatelessAnalyzers
 
         private void AnalyzeOperation(OperationAnalysisContext context)
         {
-            IArrayCreationOperation creationOperation = (IArrayCreationOperation)context.Operation;
+            IArrayCreationOperation creationExpression = (IArrayCreationOperation)context.Operation;
 
-            if (creationOperation.DimensionSizes.Length == 1 && creationOperation.DimensionSizes[0].ConstantValue.HasValue)
+            if (creationExpression.DimensionSizes.Length == 1 && creationExpression.DimensionSizes[0].ConstantValue.HasValue)
             {
-                object arrayDimension = creationOperation.DimensionSizes[0].ConstantValue.Value;
+                object arrayDimension = creationExpression.DimensionSizes[0].ConstantValue.Value;
                 if (arrayDimension is int && (int)arrayDimension == 0)
                 {
                     context.ReportDiagnostic(Diagnostic.Create(Rule, context.Operation.Syntax.GetLocation()));
